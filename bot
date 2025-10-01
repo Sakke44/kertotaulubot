@@ -1,0 +1,46 @@
+import streamlit as st
+import random
+
+def kertotaulubotti():
+    """
+    Tämä botti kyselee satunnaisia kertolaskuja lukualueella 1-10
+    ja antaa palautetta käyttäjän vastauksista Streamlit-käyttöliittymässä.
+    """
+    st.title("Kertotaulubotti")
+    st.write("Harjoitellaan kertotauluja väliltä 1-10.")
+    st.write('Voit lopettaa milloin vain kirjoittamalla "Lopeta".')
+
+    # Initialize session state for the current question and answer
+    if 'luku1' not in st.session_state:
+        st.session_state.luku1 = random.randint(1, 10)
+        st.session_state.luku2 = random.randint(1, 10)
+        st.session_state.oikea_vastaus = st.session_state.luku1 * st.session_state.luku2
+
+    # Display the question
+    vastaus_str = st.text_input(f"Paljonko on {st.session_state.luku1} x {st.session_state.luku2}?", key="answer_input")
+
+    # Process the answer when the user submits something
+    if vastaus_str:
+        if vastaus_str.lower() == 'lopeta':
+            st.write("Kiitos pelaamisesta! Nähdään taas! 👋")
+            # Reset state to allow starting a new game if desired
+            for key in st.session_state.keys():
+                del st.session_state[key]
+        else:
+            try:
+                vastaus_int = int(vastaus_str)
+                if vastaus_int == st.session_state.oikea_vastaus:
+                    st.write("Oikein! Hienoa työtä! ✅")
+                    # Generate a new question
+                    st.session_state.luku1 = random.randint(1, 10)
+                    st.session_state.luku2 = random.randint(1, 10)
+                    st.session_state.oikea_vastaus = st.session_state.luku1 * st.session_state.luku2
+                    # Clear the input field for the next question
+                    st.session_state.answer_input = "" # This might not immediately clear the displayed value, a button might be better
+                else:
+                    st.write(f"Väärin. Oikea vastaus oli {st.session_state.oikea_vastaus}. Yritä uudelleen! ❌")
+            except ValueError:
+                st.write("Syötä vain numeroita. Yritä uudelleen.")
+
+# Run the Streamlit app
+kertotaulubotti()
