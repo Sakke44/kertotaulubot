@@ -1,0 +1,30 @@
+import streamlit as st
+
+st.write("## Muutokset alkuperäiseen koodiin")
+st.write("""
+Alkuperäinen komentorivipohjainen Kertotaulubotti on muokattu Streamlit-yhteensopivaksi.
+Tärkeimmät muutokset ovat:
+
+*   **Streamlitin käyttöönotto:** Koodiin on lisätty `import streamlit as st`.
+*   **Komentorivisyötteiden ja -tulosteiden korvaaminen:**
+    *   `input()`-funktio on korvattu `st.text_input`-komponentilla käyttäjän vastauksen lukemiseksi.
+    *   `print()`-funktio on korvattu `st.write`-komponentilla tekstin (otsikot, ohjeet, kysymykset, palaute) näyttämiseksi käyttöliittymässä.
+*   **Streamlitin `session_state`:** Koska Streamlit suorittaa skriptin alusta loppuun jokaisen käyttäjän interaktion yhteydessä, `st.session_state` on otettu käyttöön nykyisen kertolaskun (luvut ja oikea vastaus) säilyttämiseksi eri suorituskertojen välillä. Tämä varmistaa, että sama kysymys pysyy näytöllä, kunnes käyttäjä antaa oikean vastauksen tai lopettaa.
+*   **Lopettaminen:** Sovellus lopetetaan kirjoittamalla "Lopeta" vastauskenttään. Tällöin `session_state` nollataan, jotta uuden pelin aloittaminen on mahdollista.
+""")
+
+st.write("## Sovelluksen käynnistäminen ja käyttö")
+st.write("""
+1.  Tallenna muokattu koodi Python-tiedostoon (esim. `kertotaulubotti_streamlit.py`).
+2.  Avaa pääte tai komentokehote.
+3.  Navigoi hakemistoon, johon tallensit tiedoston.
+4.  Suorita sovellus komennolla:
+    ```bash
+    streamlit run kertotaulubotti_streamlit.py
+    ```
+5.  Streamlit avaa sovelluksen automaattisesti selaimessasi.
+6.  Syötä vastauksesi "Paljonko on..." -kenttään ja paina Enter.
+7.  Saat palautteen vastauksestasi.
+8.  Uusi kysymys tulee näkyviin, kun vastaat edelliseen oikein.
+9.  Voit lopettaa sovelluksen kirjoittamalla "Lopeta" vastauskenttään.
+""")
