@@ -1,6 +1,3 @@
-import streamlit as st
-import random
-
 def kertotaulubotti():
     """
     Tämä botti kyselee satunnaisia kertolaskuja lukualueella 1-10
